@@ -19,7 +19,7 @@ export default function Home() {
     e.preventDefault();
     //TODO: 회원가입 로직 구현
     alert('회원가입이 완료되었습니다.');
-    window.localStorage.setItem('id', id);
+    localStorage.setItem('id', id);
     router.push('/mytrip');
   };
   return (

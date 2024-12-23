@@ -22,7 +22,7 @@ export default function Home() {
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (DUMMYmember.includes(id)) {
-      window.localStorage.setItem('id', id);
+      localStorage.setItem('id', id);
       router.push('/mytrip');
     } else {
       alert('아이디를 확인해주세요.');

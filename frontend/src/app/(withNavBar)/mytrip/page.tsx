@@ -19,8 +19,7 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">
-                  당신의 소중한 여행 기록들이 저장되어 있습니다. 
-                  지난 여행들을 돌아보고 새로운 영감을 얻어보세요.
+                  나의 지난 여행기록들이 저장되어 있습니다.
                 </p>
                 <Button className="w-full" variant="outline">
                   기록 보기
@@ -38,8 +37,7 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">
-                  새로운 목적지를 향한 여행을 계획해보세요. 
-                  당신의 다음 모험이 기다리고 있습니다.
+                  새로운 여행을 계획하고 떠나보아요.
                 </p>
                 <Button className="w-full">
                   여행 만들기
