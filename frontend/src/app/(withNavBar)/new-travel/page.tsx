@@ -30,7 +30,6 @@ export default function NewTravel() {
   const [tripPlans, setTripPlans] = useState<{ [key: string]: TripRecord[] }>(
     {}
   );
-  console.log(tripPlans);
 
   const handleAddRecord = (date: string) => {
     setTripPlans((prev) => ({

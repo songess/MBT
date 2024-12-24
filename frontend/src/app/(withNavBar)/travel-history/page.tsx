@@ -34,9 +34,20 @@ export default function TravelHistory() {
     setOpenTrips(newOpenTrips);
   };
 
-  const handleDelete = () => {
-    // TODO: 여행 기록 삭제 로직 구현
-    alert('삭제되었습니다.');
+  const handleDelete = async (id: string) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/travel/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('삭제 요청 실패');
+      }
+      alert('삭제되었습니다.');
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+      alert('삭제에 실패했습니다.');
+    }
   };
 
   useEffect(() => {
@@ -126,7 +137,7 @@ export default function TravelHistory() {
                       <Button
                         className="w-[80px]"
                         variant="destructive"
-                        onClick={handleDelete}
+                        onClick={() => handleDelete(trip.id)}
                       >
                         삭제하기
                       </Button>
