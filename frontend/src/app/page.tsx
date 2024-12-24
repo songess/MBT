@@ -10,24 +10,39 @@ import {
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-
-// TODO: 디비에서 가져온 회원 정보
-const DUMMYmember = ['20201593', '20201594', '20201595', '20201596'];
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const router = useRouter();
   const [id, setId] = useState('');
+  const [members, setMembers] = useState<{ id: string; _id: string }[]>([]);
+  console.log(members);
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (DUMMYmember.includes(id)) {
+    const checkMembers = members.map((member) => member.id);
+    if (checkMembers.length !== 0 && checkMembers.includes(id)) {
       localStorage.setItem('id', id);
       router.push('/mytrip');
     } else {
       alert('아이디를 확인해주세요.');
     }
   };
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/login');
+        const data = await response.json();
+        setMembers(data.signUpUsers);
+      } catch (e) {
+        console.error(e);
+        alert('회원정보를 불러오는데 실패했습니다(서버이슈).');
+      }
+    };
+    fetchMembers();
+  }, []);
+
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-100 to-white p-4">
       <Card className="w-full max-w-md">
