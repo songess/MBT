@@ -4,6 +4,9 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'MBT',
   description: 'My Beautiful Trip',
+  icons: {
+    icon: '/airplane.png',
+  },
 };
 
 export default function RootLayout({
