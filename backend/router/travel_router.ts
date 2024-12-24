@@ -36,4 +36,19 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   });
 });
 
+router.delete(
+  '/:id',
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log('delete' + req.params.id, typeof req.params.id);
+    const { id } = req.params;
+    try {
+      await Trip.findOneAndDelete({ id: id });
+    } catch (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.status(200).json('Trip deleted');
+  }
+);
+
 export default router;
