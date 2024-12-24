@@ -51,7 +51,6 @@ export default function NewTravel() {
     field: keyof TripRecord,
     value: string
   ) => {
-    console.log(value);
     setTripPlans((prev) => ({
       ...prev,
       [date]: prev[date].map((record, i) =>

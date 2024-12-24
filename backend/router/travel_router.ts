@@ -8,9 +8,7 @@ import Trip from '../models/travels';
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
-  console.log('post');
   const { trip } = req.body;
-  console.log(trip);
   const newTrip = new Trip(trip);
   try {
     await newTrip.save();
@@ -22,7 +20,6 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-  console.log('get');
   let trip: any;
   try {
     trip = await Trip.find({});
@@ -39,7 +36,6 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 router.delete(
   '/:id',
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log('delete' + req.params.id, typeof req.params.id);
     const { id } = req.params;
     try {
       await Trip.findOneAndDelete({ id: id });

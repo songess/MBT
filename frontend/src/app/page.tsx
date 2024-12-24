@@ -16,7 +16,6 @@ export default function Home() {
   const router = useRouter();
   const [id, setId] = useState('');
   const [members, setMembers] = useState<{ id: string; _id: string }[]>([]);
-  console.log(members);
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

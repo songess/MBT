@@ -8,7 +8,6 @@ import SignUpUser from '../models/signUpUsers';
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
-  console.log('post');
   const { id } = req.body;
   const signUpUser = new SignUpUser({
     id,
@@ -22,7 +21,6 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-  console.log('get');
   let signUpUser: any;
   try {
     signUpUser = await SignUpUser.find({});

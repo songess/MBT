@@ -55,7 +55,6 @@ export default function TravelHistory() {
       try {
         const response = await fetch('http://localhost:8080/api/travel');
         const data = await response.json();
-        console.log(data.trips);
         setTrips(
           data.trips.filter(
             (trip: Trip) => trip.whose === localStorage.getItem('id')
