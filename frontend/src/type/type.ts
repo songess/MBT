@@ -1,5 +1,6 @@
 export interface Trip {
   id: string;
+  whose: string;
   title: string;
   fullTrip: TripDayPlan[];
 }
