@@ -21,22 +21,7 @@ import { CalendarIcon, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import { cn } from '@/lib/utils';
-
-interface TripRecord {
-  startTime: string;
-  content: string;
-}
-
-interface TripDayPlan {
-  date: string;
-  oneDayDetail: TripRecord[];
-}
-
-interface Trip {
-  id: string;
-  title: string;
-  fullTrip: TripDayPlan[];
-}
+import { Trip, TripRecord } from '@/type/type';
 
 export default function NewTravel() {
   const [startDate, setStartDate] = useState<Date>();
@@ -45,6 +30,7 @@ export default function NewTravel() {
   const [tripPlans, setTripPlans] = useState<{ [key: string]: TripRecord[] }>(
     {}
   );
+  console.log(tripPlans);
 
   const handleAddRecord = (date: string) => {
     setTripPlans((prev) => ({
@@ -66,6 +52,7 @@ export default function NewTravel() {
     field: keyof TripRecord,
     value: string
   ) => {
+    console.log(value);
     setTripPlans((prev) => ({
       ...prev,
       [date]: prev[date].map((record, i) =>
@@ -86,7 +73,7 @@ export default function NewTravel() {
     return dates;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!startDate || !endDate || !title) {
       alert('시작일, 종료일, 제목을 모두 입력해주세요.');
       return;
@@ -95,6 +82,7 @@ export default function NewTravel() {
 
     const trip: Trip = {
       id: Date.now().toString(),
+      whose: localStorage.getItem('id') || '',
       title,
       fullTrip: getDatesInRange(startDate, endDate).map((date) => ({
         date,
@@ -105,7 +93,6 @@ export default function NewTravel() {
           }
           return {
             ...record,
-            startTime: dayjs(record.startTime, 'HH:mm').format('HH:mm'),
           };
         }),
       })),
@@ -114,8 +101,23 @@ export default function NewTravel() {
     if (isError) {
       return;
     }
-    console.log('제출된 여행 정보:', trip);
-    // TODO: 여기에 API 호출 로직 추가
+    try {
+      const response = await fetch('http://localhost:8080/api/travel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ trip }),
+      });
+      if (!response.ok) {
+        throw new Error('여행 계획 저장 실패');
+      }
+      alert('여행 계획이 저장되었습니다.');
+      window.location.href = '/mytrip';
+    } catch (e) {
+      console.error(e);
+      alert('여행 계획 저장에 실패했습니다.');
+    }
   };
 
   return (

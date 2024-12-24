@@ -17,7 +17,6 @@ export default function Home() {
 
   const handleSignUp = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    //TODO: 회원가입 로직 구현
     try {
       const response = await fetch('http://localhost:8080/api/login', {
         method: 'POST',
